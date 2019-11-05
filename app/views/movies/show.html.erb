@@ -1,0 +1,81 @@
+
+<%
+  if @movie.thumbnail.exists?
+    profile_picture_url = @movie.thumbnail.url(:medium)
+  else
+    profile_picture_url = image_url('movie_missing.jpg')
+  end
+%>
+
+
+<%= form_with(model: @movie, local: true, html: { multipart: true }) do |form| %>
+
+
+
+  <div class="row" style="margin-top: 1%;">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+      <div id="thumbnail">
+        <center>
+          <a id="profile_picture_uploader">
+            <img id="pp_preview_763245" src="<%= profile_picture_url %>" alt="movie-thumbnail" style="max-width:150px;border-radius: 4px;">
+          </a>
+        </center>
+      </div>
+    </div>
+    <div class="col-sm-4"></div>
+  </div>
+
+  <div class="row" style="margin-top: 2%;">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+      <div class="row">
+        <div class="col-sm-6">
+
+          <div class="field">
+            <%= form.label :name %>
+            <%= form.text_field :name, class: 'form-control', maxlength: "10", required: true, disabled: true %>
+          </div>
+
+          <div class="field">
+            <%= form.label :year %>
+            <%= form.text_field :year, class: 'form-control', maxlength: "4", placeholder: '2009', required: true, disabled: true %>
+          </div>
+
+          <div class="field">
+            <label>Genres</label>
+            <%= form.text_field :year, class: 'form-control', maxlength: "4", placeholder: '2009', required: true, disabled: true, value: @movie.genres.pluck(:name).join(', ') %>
+          </div>
+
+          <div class="field">
+            <label>Favrited Count</label>
+            <%= form.text_field :year, class: 'form-control', maxlength: "4", placeholder: '2009', required: true, disabled: true, value: @movie.favorited_by_users %>
+          </div>
+
+          <%= link_to 'Edit', edit_movie_path(@movie) %> |
+          <%= link_to 'Back', movies_path %>
+        </div>
+        <div class="col-sm-6">
+
+          <div class="field">
+            <%= form.label :director %>
+            <%= form.text_field :director, class: 'form-control', maxlength: "60", disabled: true %>
+          </div>
+
+          <div class="field">
+            <%= form.label :main_star %>
+            <%= form.text_field :main_star, class: 'form-control', maxlength: "60", disabled: true %>
+          </div>
+
+          <div class="field">
+            <%= form.label :description %>
+            <%= form.text_area :description, class: 'form-control', maxlength: "400", disabled: true %>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2"></div>
+  </div>
+
+<% end %>

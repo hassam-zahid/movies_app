@@ -1,0 +1,26 @@
+.navbar-brand:hover{
+    color: black;
+    background-color: #f8f9fa!important;
+    border-radius: 4px;
+}
+
+.show > .nav-link,
+.active > .nav-link,
+.nav-link.show,
+.nav-link.active {
+    color: black;
+    background-color: #eceff1!important;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+
+.nav-link {
+    color: black;
+    background-color: #f8f9fa!important;
+    border-radius: 4px;
+}
+
+.dont_show_colors:hover{
+    background-color: white;
+}

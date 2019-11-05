@@ -1,0 +1,132 @@
+
+<%
+  if movie.thumbnail.exists?
+    profile_picture_url = movie.thumbnail.url(:medium)
+  else
+    profile_picture_url = image_url('movie_missing.jpg')
+  end
+%>
+
+
+<%= form_with(model: movie, local: true, html: { multipart: true }) do |form| %>
+
+  <% if movie.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(movie.errors.count, "error") %> prohibited this movie from being saved:</h2>
+
+      <ul>
+        <% movie.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row" style="margin-top: 1%;">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+      <div id="thumbnail">
+        <center>
+          <a id="profile_picture_uploader">
+            <img id="pp_preview_763245" src="<%= profile_picture_url %>" alt="movie-thumbnail" style="max-width:150px;border-radius: 4px;">
+          </a>
+
+        </center>
+        <center>
+          (Only PNG, JPEG and JPG images 1000 pixels tall and between 600 and 800 pixels wide. 1MB max.)
+        </center>
+        <input type="file" name="movie[thumbnail]" id="pf_image_uploader_111" style="display:none;" accept="image/x-png,image/gif,image/jpeg">
+      </div>
+    </div>
+    <div class="col-sm-4"></div>
+  </div>
+
+  <div class="row" style="margin-top: 2%;">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+      <div class="row">
+        <div class="col-sm-6">
+
+          <div class="field">
+            <%= form.label :name %>
+            <%= form.text_field :name, class: 'form-control', maxlength: "10", required: true %>
+          </div>
+
+          <div class="form-group">
+            <label for="sel1">Select Year</label>
+            <select class="form-control" name="movie[year]">
+              <% for i in 0 .. 119 %>
+                <option <%= 'selected' if movie.year == ((2019 - i).to_s) %>><%= 2019 - i %></option>
+              <% end %>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Genres :</label>
+            <% if @target_route == 'edit_movies' %>
+              <br>
+              <%= movie.genres.pluck(:name).join(', ') %>
+            <% else %>
+              <select class="selectpicker form-control" name="selected_genres[]" multiple required>
+                <% Genre.all.pluck(:name).each do |name| %>
+                  <option><%= name %></option>
+                <% end %>
+              </select>
+            <% end %>
+          </div>
+
+          <div class="actions" style="margin-top: 3%">
+            <%= form.submit 'Submit', :class => 'btn btn-outline-success my-2 my-sm-0' %>
+          </div>
+
+        </div>
+        <div class="col-sm-6">
+
+          <div class="field">
+            <%= form.label :director %>
+            <%= form.text_field :director, class: 'form-control', maxlength: "60" %>
+          </div>
+
+          <div class="field">
+            <%= form.label :main_star %>
+            <%= form.text_field :main_star, class: 'form-control', maxlength: "60" %>
+          </div>
+
+          <div class="field">
+            <%= form.label :description %>
+            <%= form.text_area :description, class: 'form-control', maxlength: "400" %>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2"></div>
+  </div>
+
+<% end %>
+
+
+
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#pp_preview_763245').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#pf_image_uploader_111").change(function () {
+        readURL(this);
+    });
+</script>
+
+<script>
+    $("#profile_picture_uploader").click(function () {
+        $("#pf_image_uploader_111").click();
+    });
+</script>

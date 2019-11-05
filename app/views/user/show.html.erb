@@ -1,0 +1,10 @@
+<h1>
+  <center>
+    <%= @user.user_name rescue '' %>
+  </center>
+</h1>
+
+<h4>Favorite Movies</h4>
+<% @user.favorite_movies.each_with_index do |movie, idx| %>
+  <%= idx+1 %> - <%= movie.name %>
+<% end %>
