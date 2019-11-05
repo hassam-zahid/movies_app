@@ -10,7 +10,7 @@
 #### Favourite Movies
 ```http://165.22.75.82/movies_list?user_name=hassam&category=favorite```
 #### Make a movie favorite
-```http://localhost:3000/movie_bucket?user_name=hassam&category=all&movie_id=1&make_favorite=1```
+```http://165.22.75.82/movie_bucket?user_name=hassam&category=all&movie_id=1&make_favorite=1```
 
 ### Remove Movie from Favourite List
 ```http://165.22.75.82/movie_bucket?user_name=hassam&category=all&movie_id=1&make_favorite=0```
