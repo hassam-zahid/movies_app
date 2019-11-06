@@ -1,19 +1,19 @@
 # README
 
 ## Api end points & docs 
-### USER Authentication Call
-``http://165.22.75.82/authenticate_user?user_name=hassam``
+### USER Authentication Call - [GET]
+``http://165.22.75.82/v1/users/hassam/authentication``
 
 ### Movies List
-#### All Movies
-```http://165.22.75.82/movies_list?user_name=hassam&category=all```
-#### Favourite Movies
-```http://165.22.75.82/movies_list?user_name=hassam&category=favorite```
-#### Make a movie favorite
-```http://165.22.75.82/movie_bucket?user_name=hassam&category=all&movie_id=1&make_favorite=1```
+#### All Movies  - [GET]
+```http://165.22.75.82/v1/movies```
+#### Favourite Movies  - [GET]
+```http://165.22.75.82/v1/movies/favourite/users/hassam```
+#### Make a movie favorite - [POST]
+```http://165.22.75.82/v1/movies/2/users/hassam/favorite```
 
-### Remove Movie from Favourite List
-```http://165.22.75.82/movie_bucket?user_name=hassam&category=all&movie_id=1&make_favorite=0```
+### Remove Movie from Favourite List - [DELETE]
+```http://165.22.75.82/v1/movies/2/users/hassam/favorite```
 
-### Get Movie Details
-```http://165.22.75.82/movie_details?user_name=hassam&movie_id=3```
+### Get Movie Details - [GET]
+```http://165.22.75.82/v1/movies/3```
