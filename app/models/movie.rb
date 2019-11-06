@@ -66,7 +66,9 @@ class Movie < ApplicationRecord
       FavoriteMovie.find_or_create_by(user_id: user_id, movie_id: movie_id)
     end
     movie.cache_favorited_by_users
-    return Notification.notify
+    return Notification.notify(200, 'success', {
+        favorite_movies_count: FavoriteMovie.where(user_id: user_id).count
+    })
   end
 
   def cache_favorited_by_users
