@@ -65,15 +65,26 @@
             <label>Genres :</label>
             <% if @target_route == 'edit_movies' %>
               <br>
-              <%= movie.genres.pluck(:name).join(', ') %>
-            <% else %>
-              <select class="selectpicker form-control" name="selected_genres[]" multiple required>
+              <% genres_names =  movie.genres.pluck(:name)%>
+              <select id="example-getting-started" multiple="multiple" name="selected_genres[]" required>>
                 <% Genre.all.pluck(:name).each do |name| %>
-                  <option><%= name %></option>
+                  <option value="<%= name %>" <%= 'selected' if genres_names.include?(name) %>><%= name %></option>
                 <% end %>
               </select>
+            <% else %>
+
+              <select id="example-getting-started" multiple="multiple" name="selected_genres[]" required>>
+                <% Genre.all.pluck(:name).each do |name| %>
+                  <option value="<%= name %>"><%= name %></option>
+                <% end %>
+              </select>
+
             <% end %>
           </div>
+
+
+
+
 
           <div class="actions" style="margin-top: 3%">
             <%= form.submit 'Submit', :class => 'btn btn-outline-success my-2 my-sm-0' %>
@@ -128,5 +139,12 @@
 <script>
     $("#profile_picture_uploader").click(function () {
         $("#pf_image_uploader_111").click();
+    });
+
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#example-getting-started').multiselect();
     });
 </script>

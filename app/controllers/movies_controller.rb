@@ -55,7 +55,21 @@ class MoviesController < ApplicationController
   # PATCH/PUT /movies/1.json
   def update
     respond_to do |format|
+
       if @movie.update(movie_params)
+        data_to_submit = []
+        gen_ids = Genre.where(name: params[:selected_genres]).pluck(:id)
+        gen_ids.each do |gen_id|
+          data_to_submit << {
+              genre_id: gen_id,
+              movie_id: @movie.id,
+              created_at: Time.now,
+              updated_at: Time.now,
+          }
+        end
+        GenresMovie.where(genre_id: gen_ids, movie_id: @movie.id).delete_all rescue nil
+        GenresMovie.insert_all(data_to_submit)
+
         format.html { redirect_to @movie, notice: 'Movie was successfully updated.' }
         format.json { render :show, status: :ok, location: @movie }
       else
