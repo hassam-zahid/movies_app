@@ -7,6 +7,7 @@ gem 'devise-bootstrap-views', '~> 1.0'
 gem 'rails', '~> 6.0.0'
 # Use sqlite3 as the database for Active Record
 gem 'pg'
+gem 'sqlite3'
 gem "paperclip"
 gem 'jwt'
 # Use Puma as the app server

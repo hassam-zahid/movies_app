@@ -1,21 +1,9 @@
 
 development:
-  adapter: postgresql
-  host: 127.0.0.1
+  adapter: sqlite3
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
   database: movie_dev
-  username: db_super_user_psql
-  password: rG4jJ3R_hnpJw
-  encoding: unicode
-  pool: 50
-
-test:
-  adapter: postgresql
-  host: 127.0.0.1
-  database: movie_dev
-  username: db_super_user_psql
-  password: rG4jJ3R_hnpJw
-  encoding: unicode
-  pool: 50
 
 production:
   adapter: postgresql
