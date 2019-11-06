@@ -10,9 +10,11 @@ Rails.application.routes.draw do
 
 
   # API ROUTES
-  get 'authenticate_user' => 'api#authenticate_user'
-  get 'movies_list' => 'api#movies_list'
-  get 'movie_bucket' => 'api#movie_bucket'
-  get 'movie_details' => 'api#movie_details'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  get 'v1/users/:user_name/authentication' => 'api#authenticate_user'
+  post 'v1/users/:user_name/authentication' => 'api#authenticate_user'
+  get 'v1/movies' => 'api#movies_list'
+  get 'v1/movies/:movie_id' => 'api#movie_details'
+  post 'v1/movies/:movie_id/users/:user_name/favorite' => 'api#add_favorite_movie'
+  delete 'v1/movies/:movie_id/users/:user_name/favorite' => 'api#delete_favorite_movie'
+  get 'v1/movies/favourite/users/:user_name' => 'api#favorite_movies_list'
 end
